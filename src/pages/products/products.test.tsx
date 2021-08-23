@@ -1,8 +1,20 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
-import ProductsPage from './products';
+import { render, screen } from "@testing-library/react";
+import ProductsPage from "./products";
 
-it('renders products title', () => {
+describe("Products page", () => {
+  beforeEach(() => {
     render(<ProductsPage />);
-    expect(screen.getByText('Products page')).toBeInTheDocument();
-})
+  });
+  it("renders products title", () => {
+    expect(screen.getByText("Products page")).toBeInTheDocument();
+  });
+
+  it("should display the products and price", () => {
+    expect(screen.getByText("Tin of beans"));
+    expect(screen.getByText("50p each"));
+    expect(screen.getByText("Can of cola"));
+    expect(screen.getByText("70p each"));
+    expect(screen.getByText("Oranges"));
+    expect(screen.getByText("£1.99 per kg"));
+  });
+});
