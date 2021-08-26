@@ -5,7 +5,6 @@ const ProductImage = styled.div`
 `;
 
 const ImageBorder = styled.div`
-  border: 1px solid;
   padding: 10px;
   width: 100px;
   text-align: center;
@@ -13,6 +12,7 @@ const ImageBorder = styled.div`
 
 const ProductName = styled.div`
   font-weight: bold;
+  margin-right: 5px;
 `;
 interface ProductsProps {
   name: string;
@@ -23,7 +23,6 @@ interface ProductsProps {
 }
 
 const Product = (props: ProductsProps) => {
-  
   return (
     <>
       <ImageBorder>
