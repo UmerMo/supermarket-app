@@ -1,3 +1,4 @@
+import { privateDecrypt } from "crypto";
 import styled from "styled-components";
 
 const ProductImage = styled.div`
@@ -16,24 +17,33 @@ const ProductName = styled.div`
 `;
 interface ProductsProps {
   name: string;
-  price: string;
+  price: number;
   image: string;
-  unit: string;
-  poundSign?: boolean;
+  perKg?: boolean;
 }
 
 const Product = (props: ProductsProps) => {
+  const formattedPrice = () => {
+    let priceStringBuilder = "";
+    if (props.price.toString().startsWith("0")) {
+      priceStringBuilder = `${props.price.toFixed(2)}p`;
+    } else {
+      priceStringBuilder = `£${props.price.toFixed(2)}`;
+    }
+
+    console.log(priceStringBuilder)
+
+    return props.perKg
+      ? `${priceStringBuilder} per kg`
+      : `${priceStringBuilder} each`;
+  };
   return (
     <>
       <ImageBorder>
         <ProductImage>{props.image}</ProductImage>
       </ImageBorder>
       <ProductName>{props.name}</ProductName>
-      <p>
-        {props.poundSign
-          ? `£${props.price} ${props.unit}`
-          : `${props.price}p ${props.unit}`}
-      </p>
+      <p>{formattedPrice()}</p>
     </>
   );
 };
