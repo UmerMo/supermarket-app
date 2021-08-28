@@ -1,5 +1,6 @@
 import {
   fireEvent,
+  queryByText,
   render,
   screen,
   within,
@@ -28,15 +29,13 @@ describe("Products page", () => {
 
   it("should display basket item when I click add to basket", () => {
     fireEvent.click(screen.getByTestId("add-button-1"));
-    const { getByText } = within(screen.getByTestId("basket"));
+    const { queryAllByText } = within(screen.getByTestId("basket"));
 
-    expect(getByText("Can of cola")).toBeInTheDocument();
-    expect(getByText("1")).toBeInTheDocument();
+    expect(queryAllByText("Can of cola")).toHaveLength(1);
 
     // update quantity when added to basket twice
     fireEvent.click(screen.getByTestId("add-button-1"));
 
-    expect(getByText("Can of cola")).toBeInTheDocument();
-    expect(getByText("2")).toBeInTheDocument();
+    expect(queryAllByText("Can of cola")).toHaveLength(2);
   });
 });

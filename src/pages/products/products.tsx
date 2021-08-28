@@ -21,21 +21,23 @@ const ProductContainer = styled.div`
 `;
 
 const ButtonContainer = styled.div`
-width: 300px;
-margin-top: 90px;
-`
+  width: 300px;
+  margin-top: 90px;
+`;
 
 const Basket = styled.div`
+  width: 200px;
+  border: 1px dotted black;
+`;
 
-`
-
-const Item = styled.div``
+const Item = styled.div`
+  display: flex;
+`;
 
 interface BasketItem {
   image: string;
   name: string;
   price: number;
-  quantity?: number;
   perKg?: boolean;
 }
 
@@ -50,16 +52,7 @@ export default () => {
 
   const addItemToBasket = (product: BasketItem) => {
     setBasket((prevState: BasketItem[]): BasketItem[] => {
-      const isItemInCart = prevState.find((item) => item.name === product.name);
-
-      if (isItemInCart) {
-        return prevState.map((item) =>
-          item.name === product.name
-            ? { ...item, quantity: item.quantity! + 1 }
-            : item
-        );
-      }
-      return [...prevState, { ...product, quantity: 1 }];
+      return [...prevState, product];
     });
   };
 
@@ -88,18 +81,19 @@ export default () => {
                 Add to basket
               </Button>
             </ButtonContainer>
-            
           </ProductContainer>
         ))}
       </Products>
+      <h3>Basket</h3>
       <Basket data-testid={"basket"}>
-        <h3>Basket</h3>
-        {basketItems.map((item) => (
-          <Item>
-            <p>{item.name}</p>
-            <p>{item.quantity}</p>
-          </Item>
-        ))}
+        {basketItems.map((item, i) => {
+          return (
+            <Item key={i}>
+              <p>{item.name}</p>
+              <p>{item.price}</p>
+            </Item>
+          );
+        })}
       </Basket>
     </PageContainer>
   );

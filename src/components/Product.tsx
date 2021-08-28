@@ -45,9 +45,7 @@ const Product = (props: ProductsProps) => {
           labelPosition="right"
           placeholder="Enter weight..."
         />
-      ) : (
-        <Quantity placeholder="Enter quantity..." />
-      )}
+      ) : null}
     </Container>
   );
 };
