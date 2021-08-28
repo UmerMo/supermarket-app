@@ -20,6 +20,11 @@ const ProductContainer = styled.div`
   padding: 10px;
 `;
 
+const ButtonContainer = styled.div`
+width: 300px;
+margin-top: 90px;
+`
+
 const Basket = styled.div`
 
 `
@@ -71,19 +76,23 @@ export default () => {
               image={product.image}
               perKg={product.perKg}
             />
-            <Button
-              data-testid={`add-button-${i}`}
-              key={`add-button-${i}`}
-              basic
-              color="blue"
-              onClick={() => addItemToBasket(product)}
-            >
-              Add to basket
-            </Button>
+            <ButtonContainer>
+              <Button
+                data-testid={`add-button-${i}`}
+                key={`add-button-${i}`}
+                basic
+                color="blue"
+                onClick={() => addItemToBasket(product)}
+                size={"medium"}
+              >
+                Add to basket
+              </Button>
+            </ButtonContainer>
+            
           </ProductContainer>
         ))}
       </Products>
-      <Basket data-testid={'basket'}>
+      <Basket data-testid={"basket"}>
         <h3>Basket</h3>
         {basketItems.map((item) => (
           <Item>

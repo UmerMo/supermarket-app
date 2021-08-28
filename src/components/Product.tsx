@@ -1,19 +1,27 @@
-import { privateDecrypt } from "crypto";
+import { Input } from "semantic-ui-react";
+import { formatPrice } from "../utils/productsUtil";
 import styled from "styled-components";
 
 const ProductImage = styled.div`
   font-size: 30px;
 `;
 
-const ImageBorder = styled.div`
+const Image = styled.div`
   padding: 10px;
-  width: 100px;
   text-align: center;
 `;
 
 const ProductName = styled.div`
   font-weight: bold;
   margin-right: 5px;
+`;
+
+const Quantity = styled(Input)`
+  width: 120px;
+`;
+
+const Container = styled.div`
+  width: 400px;
 `;
 interface ProductsProps {
   name: string;
@@ -23,28 +31,24 @@ interface ProductsProps {
 }
 
 const Product = (props: ProductsProps) => {
-  const formattedPrice = () => {
-    let priceStringBuilder = "";
-    if (props.price.toString().startsWith("0")) {
-      priceStringBuilder = `${props.price.toFixed(2)}p`;
-    } else {
-      priceStringBuilder = `£${props.price.toFixed(2)}`;
-    }
-
-    console.log(priceStringBuilder)
-
-    return props.perKg
-      ? `${priceStringBuilder} per kg`
-      : `${priceStringBuilder} each`;
-  };
   return (
-    <>
-      <ImageBorder>
+    <Container>
+      <Image>
         <ProductImage>{props.image}</ProductImage>
-      </ImageBorder>
+      </Image>
       <ProductName>{props.name}</ProductName>
-      <p>{formattedPrice()}</p>
-    </>
+      <p>{formatPrice(props.price, props.perKg)}</p>
+
+      {props.perKg ? (
+        <Quantity
+          label={{ basic: true, content: "kg" }}
+          labelPosition="right"
+          placeholder="Enter weight..."
+        />
+      ) : (
+        <Quantity placeholder="Enter quantity..." />
+      )}
+    </Container>
   );
 };
 
