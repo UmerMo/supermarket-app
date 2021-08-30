@@ -36,11 +36,10 @@ const Item = styled.div`
 `;
 
 export default () => {
-  const [basketItems, setBasket] = useState<Array<BasketItem>>([]);
-  const { getProducts } = useContext(SupermarketContext);
+  const { getProducts, setBasketItems, basketItems } = useContext(SupermarketContext);
 
   const addItemToBasket = (product: BasketItem) => {
-    setBasket((prevState: BasketItem[]): BasketItem[] => {
+    setBasketItems((prevState: BasketItem[]): BasketItem[] => {
       return [...prevState, product];
     });
   };
