@@ -2,7 +2,11 @@ import styled from "styled-components";
 import Product from "../../components/Product";
 import { Button } from "semantic-ui-react";
 import { useContext } from "react";
-import { SupermarketContext, BasketItem } from "../../context/supermarketContext";
+import { Basket } from "../../components/Basket";
+import {
+  SupermarketContext,
+  BasketItem,
+} from "../../context/supermarketContext";
 
 const PageContainer = styled.div`
   display: flex;
@@ -26,17 +30,9 @@ const ButtonContainer = styled.div`
   margin-top: 90px;
 `;
 
-const Basket = styled.div`
-  width: 200px;
-  border: 1px dotted black;
-`;
-
-const Item = styled.div`
-  display: flex;
-`;
-
 export default () => {
-  const { getProducts, addItemsToBasket, basketItems } = useContext(SupermarketContext);
+  const { getProducts, addItemsToBasket, basketItems } =
+    useContext(SupermarketContext);
 
   return (
     <PageContainer>
@@ -66,17 +62,7 @@ export default () => {
           </ProductContainer>
         ))}
       </Products>
-      <h3>Basket</h3>
-      <Basket data-testid={"basket"}>
-        {basketItems.map((item, i) => {
-          return (
-            <Item key={i}>
-              <p>{item.name}</p>
-              <p>{item.price}</p>
-            </Item>
-          );
-        })}
-      </Basket>
+      <Basket />
     </PageContainer>
   );
 };
