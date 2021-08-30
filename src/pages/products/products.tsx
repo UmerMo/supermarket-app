@@ -1,7 +1,8 @@
 import styled from "styled-components";
 import Product from "../../components/Product";
 import { Button } from "semantic-ui-react";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { SupermarketContext, BasketItem } from "../../context/supermarketContext";
 
 const PageContainer = styled.div`
   display: flex;
@@ -34,21 +35,9 @@ const Item = styled.div`
   display: flex;
 `;
 
-interface BasketItem {
-  image: string;
-  name: string;
-  price: number;
-  perKg?: boolean;
-}
-
-let productsDictionary = [
-  { name: "Tin of beans", price: 0.5, image: "🥫" },
-  { name: "Can of cola", price: 0.7, image: "🥤" },
-  { name: "Oranges", price: 1.99, image: "🍊", perKg: true },
-];
-
 export default () => {
   const [basketItems, setBasket] = useState<Array<BasketItem>>([]);
+  const { getProducts } = useContext(SupermarketContext);
 
   const addItemToBasket = (product: BasketItem) => {
     setBasket((prevState: BasketItem[]): BasketItem[] => {
@@ -60,7 +49,7 @@ export default () => {
     <PageContainer>
       <h1>Products page</h1>
       <Products>
-        {productsDictionary.map((product: BasketItem, i) => (
+        {getProducts().map((product: BasketItem, i) => (
           <ProductContainer key={i}>
             <Product
               key={product.name}

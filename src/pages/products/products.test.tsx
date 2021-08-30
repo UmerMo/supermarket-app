@@ -1,15 +1,14 @@
-import {
-  fireEvent,
-  queryByText,
-  render,
-  screen,
-  within,
-} from "@testing-library/react";
+import { fireEvent, render, screen, within } from "@testing-library/react";
+import { SupermarketContextProvider } from "../../context/supermarketContext";
 import ProductsPage from "./products";
 
 describe("Products page", () => {
   beforeEach(() => {
-    render(<ProductsPage />);
+    render(
+      <SupermarketContextProvider>
+        <ProductsPage />
+      </SupermarketContextProvider>
+    );
   });
   it("renders products title", () => {
     expect(screen.getByText("Products page")).toBeInTheDocument();
@@ -27,7 +26,7 @@ describe("Products page", () => {
     expect(screen.getByText("£1.99 per kg"));
   });
 
-  it("should display basket item when I click add to basket", () => {
+  it("should display basket items when I click add to basket", () => {
     fireEvent.click(screen.getByTestId("add-button-1"));
     const { queryAllByText } = within(screen.getByTestId("basket"));
 

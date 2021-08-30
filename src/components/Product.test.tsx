@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import Product from "./product";
+import Product from "./Product";
 
 describe("Product component", () => {
   it("should correctly render all the fields", () => {
