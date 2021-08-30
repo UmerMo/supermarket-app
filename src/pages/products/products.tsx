@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Product from "../../components/Product";
 import { Button } from "semantic-ui-react";
-import { useState, useContext } from "react";
+import { useContext } from "react";
 import { SupermarketContext, BasketItem } from "../../context/supermarketContext";
 
 const PageContainer = styled.div`
