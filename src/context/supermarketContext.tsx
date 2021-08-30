@@ -16,7 +16,7 @@ interface Props {
 }
 
 export interface BasketItem {
-  id: Number;
+  id: number;
   image: string;
   name: string;
   price: number;
@@ -24,21 +24,24 @@ export interface BasketItem {
 }
 
 export type SupermarketContextType = {
-  getProducts: () => BasketItem[];
   basketItems: BasketItem[];
+  getProducts: () => BasketItem[];
   addItemsToBasket: (product: BasketItem) => void;
+  getSubTotal: () => number;
+
 };
 
 export const SupermarketContext = createContext<SupermarketContextType>({
-  getProducts: () => [],
   basketItems: [],
+  getProducts: () => [],
   addItemsToBasket: () => {},
+  getSubTotal: () => 0
 });
 
 export const SupermarketContextProvider = ({ children }: Props) => {
   const [basketItems, setBasketItems] = useState<BasketItem[]>([]);
 
-  function getProducts(): BasketItem[] {
+  function getProducts() {
     return products;
   }
 
@@ -48,12 +51,17 @@ export const SupermarketContextProvider = ({ children }: Props) => {
     });
   }
 
+  function getSubTotal() {
+    return basketItems.reduce((accumulator, current) => accumulator + current.price, 0)
+  }
+
   return (
     <SupermarketContext.Provider
       value={{
-        getProducts,
         basketItems,
+        getProducts,
         addItemsToBasket,
+        getSubTotal
       }}
     >
       {children}

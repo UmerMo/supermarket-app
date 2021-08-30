@@ -49,8 +49,8 @@ export default () => {
             />
             <ButtonContainer>
               <Button
-                data-testid={`add-button-${i}`}
-                key={`add-button-${i}`}
+                data-testid={`add-button-${product.id}`}
+                key={`add-button-${product.id}`}
                 basic
                 color="blue"
                 onClick={() => addItemsToBasket(product)}

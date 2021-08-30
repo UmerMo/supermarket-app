@@ -27,13 +27,13 @@ describe("Products page", () => {
   });
 
   it("should display basket items when I click add to basket", () => {
-    fireEvent.click(screen.getByTestId("add-button-1"));
+    fireEvent.click(screen.getByTestId("add-button-2"));
     const { queryAllByText } = within(screen.getByTestId("basket"));
 
     expect(queryAllByText("Can of cola")).toHaveLength(1);
 
     // update quantity when added to basket twice
-    fireEvent.click(screen.getByTestId("add-button-1"));
+    fireEvent.click(screen.getByTestId("add-button-2"));
 
     expect(queryAllByText("Can of cola")).toHaveLength(2);
   });
