@@ -10,8 +10,9 @@ import {
 
 const PageContainer = styled.div`
   display: flex;
-  flex-direction: column;
-  width: 500px;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 800px;
 `;
 
 const Products = styled.div`
@@ -36,8 +37,8 @@ export default () => {
 
   return (
     <PageContainer>
-      <h1>Products page</h1>
       <Products>
+      <h1>Products</h1>
         {getProducts().map((product: BasketItem, i) => (
           <ProductContainer key={i}>
             <Product

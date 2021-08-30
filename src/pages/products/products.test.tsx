@@ -11,7 +11,7 @@ describe("Products page", () => {
     );
   });
   it("renders products title", () => {
-    expect(screen.getByText("Products page")).toBeInTheDocument();
+    expect(screen.getByText("Products")).toBeInTheDocument();
   });
 
   it("should display the products and price", () => {

@@ -4,6 +4,7 @@ import { SupermarketContext } from "../context/supermarketContext";
 import { formatPrice } from "../utils/productsUtil";
 
 const BasketContainer = styled.div`
+padding: 20px;
   width: 300px;
   border: 1px dotted black;
 `;
@@ -17,8 +18,9 @@ export const Basket = () => {
     useContext(SupermarketContext);
   return (
     <>
-      <h3>Basket</h3>
       <BasketContainer data-testid={"basket"}>
+        <h1>Basket</h1>
+
         {basketItems.map((item, i) => (
           <Item key={i}>
             <p>{item.name}</p>
