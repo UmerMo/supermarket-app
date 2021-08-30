@@ -1,4 +1,4 @@
-import React, { ReactElement, createContext, useState } from "react";
+import { ReactElement, createContext, useState } from "react";
 
 const products = [
   { name: "Tin of beans", price: 0.5, image: "🥫" },
@@ -20,13 +20,13 @@ export interface BasketItem {
 export type SupermarketContextType = {
   getProducts: () => BasketItem[];
   basketItems: BasketItem[];
-  setBasketItems: React.Dispatch<React.SetStateAction<BasketItem[]>>;
+  addItemsToBasket: (product: BasketItem) => void;
 };
 
 export const SupermarketContext = createContext<SupermarketContextType>({
   getProducts: () => [],
   basketItems: [],
-  setBasketItems: () => {},
+  addItemsToBasket: () => {}
 });
 
 export const SupermarketContextProvider = ({ children }: Props) => {
@@ -36,12 +36,18 @@ export const SupermarketContextProvider = ({ children }: Props) => {
     return products;
   }
 
+  function addItemsToBasket(product: BasketItem) {
+    setBasketItems((prevState: BasketItem[]): BasketItem[] => {
+      return [...prevState, product];
+    });
+  }
+
   return (
     <SupermarketContext.Provider
       value={{
         getProducts,
         basketItems,
-        setBasketItems,
+        addItemsToBasket
       }}
     >
       {children}

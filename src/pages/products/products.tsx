@@ -36,13 +36,7 @@ const Item = styled.div`
 `;
 
 export default () => {
-  const { getProducts, setBasketItems, basketItems } = useContext(SupermarketContext);
-
-  const addItemToBasket = (product: BasketItem) => {
-    setBasketItems((prevState: BasketItem[]): BasketItem[] => {
-      return [...prevState, product];
-    });
-  };
+  const { getProducts, addItemsToBasket, basketItems } = useContext(SupermarketContext);
 
   return (
     <PageContainer>
@@ -63,7 +57,7 @@ export default () => {
                 key={`add-button-${i}`}
                 basic
                 color="blue"
-                onClick={() => addItemToBasket(product)}
+                onClick={() => addItemsToBasket(product)}
                 size={"medium"}
               >
                 Add to basket
