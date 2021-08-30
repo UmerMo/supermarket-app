@@ -7,8 +7,8 @@ const products = [
 ];
 
 const discountRules = [
-  { productId: 1, quantity: 3, discount: 0.5 },
-  { produtId: 2, quantity: 3, discount: 0.7 },
+  { productId: 1, quantity: 3, discount: 0.5, description: "Beans 3 for 2" },
+  { productId: 2, quantity: 2, discount: 0.4, description: "Cola 2 for £1" },
 ];
 
 interface Props {
@@ -28,14 +28,15 @@ export type SupermarketContextType = {
   getProducts: () => BasketItem[];
   addItemsToBasket: (product: BasketItem) => void;
   getSubTotal: () => number;
-
+  getTotalSavings: () => number;
 };
 
 export const SupermarketContext = createContext<SupermarketContextType>({
   basketItems: [],
   getProducts: () => [],
   addItemsToBasket: () => {},
-  getSubTotal: () => 0
+  getSubTotal: () => 0,
+  getTotalSavings: () => 0,
 });
 
 export const SupermarketContextProvider = ({ children }: Props) => {
@@ -52,7 +53,30 @@ export const SupermarketContextProvider = ({ children }: Props) => {
   }
 
   function getSubTotal() {
-    return basketItems.reduce((accumulator, current) => accumulator + current.price, 0)
+    return basketItems.reduce(
+      (accumulator, current) => accumulator + current.price,
+      0
+    );
+  }
+
+  function getTotalSavings() {
+    let totalSavings = 0;
+
+    discountRules.map((rule) => {
+      let itemCounter = 0;
+
+      basketItems.forEach((item) => {
+        if (item.id === rule.productId) {
+          itemCounter++;
+
+          if (itemCounter % rule.quantity == 0) {
+            totalSavings += rule.discount;
+          }
+        }
+      });
+    });
+
+    return totalSavings;
   }
 
   return (
@@ -61,7 +85,8 @@ export const SupermarketContextProvider = ({ children }: Props) => {
         basketItems,
         getProducts,
         addItemsToBasket,
-        getSubTotal
+        getSubTotal,
+        getTotalSavings,
       }}
     >
       {children}

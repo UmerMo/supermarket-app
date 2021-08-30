@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import styled from "styled-components";
 import { SupermarketContext } from "../context/supermarketContext";
-import { formatPrice } from '../utils/productsUtil';
+import { formatPrice } from "../utils/productsUtil";
 
 const BasketContainer = styled.div`
   width: 300px;
@@ -13,7 +13,8 @@ const Item = styled.div`
   justify-content: space-between;
 `;
 export const Basket = () => {
-  const { basketItems, getSubTotal } = useContext(SupermarketContext);
+  const { basketItems, getSubTotal, getTotalSavings } =
+    useContext(SupermarketContext);
   return (
     <>
       <h3>Basket</h3>
@@ -25,7 +26,9 @@ export const Basket = () => {
           </Item>
         ))}
         <p>Sub-total</p>
-        <p>£{getSubTotal()}</p>
+        <p>£{getSubTotal().toFixed(2)}</p>
+        <p>Total Savings</p>
+        <p>- £{getTotalSavings().toFixed(2)}</p>
       </BasketContainer>
     </>
   );

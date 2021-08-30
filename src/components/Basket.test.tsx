@@ -13,7 +13,8 @@ describe("Products page", () => {
           basketItems: basketItems,
           addItemsToBasket: () => {},
           getProducts: () => basketItems,
-          getSubTotal: () => 4.35
+          getSubTotal: () => 4.35,
+          getTotalSavings: () => 1.4,
         }}
       >
         <Basket />
@@ -34,5 +35,10 @@ describe("Products page", () => {
   it("Should display subtotal", () => {
     expect(screen.getByText("Sub-total"));
     expect(screen.getByText("£4.35"));
-  })
+  });
+
+  it("Should display total savings", () => {
+    expect(screen.getByText("Total Savings"));
+    expect(screen.getByText("- £1.40"));
+  });
 });
