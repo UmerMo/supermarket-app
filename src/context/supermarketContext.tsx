@@ -21,12 +21,13 @@ export interface BasketItem {
   name: string;
   price: number;
   perKg?: boolean;
+  weight?: number;
 }
 
 export type SupermarketContextType = {
   basketItems: BasketItem[];
   getProducts: () => BasketItem[];
-  addItemsToBasket: (product: BasketItem) => void;
+  addItemsToBasket: (product: BasketItem, weight?: number) => void;
   getSubTotal: () => number;
   getTotalSavings: () => number;
 };
@@ -46,17 +47,28 @@ export const SupermarketContextProvider = ({ children }: Props) => {
     return products;
   }
 
-  function addItemsToBasket(product: BasketItem) {
-    setBasketItems((prevState: BasketItem[]): BasketItem[] => {
-      return [...prevState, product];
-    });
+  function addItemsToBasket(product: BasketItem, weight?: number) {
+    if (product.perKg) {
+      console.log("weight per kg");
+      if (weight) {
+        setBasketItems((prevState: BasketItem[]): BasketItem[] => {
+          return [...prevState, { ...product, weight: weight }];
+        });
+      }
+    } else {
+      setBasketItems((prevState: BasketItem[]): BasketItem[] => {
+        return [...prevState, product];
+      });
+    }
   }
 
   function getSubTotal() {
-    return basketItems.reduce(
-      (accumulator, current) => accumulator + current.price,
-      0
-    );
+    return basketItems.reduce((accumulator, current) => {
+      if (current.perKg == true) {
+        return accumulator + current.price * current.weight!;
+      }
+      return accumulator + current.price;
+    }, 0);
   }
 
   function getTotalSavings() {

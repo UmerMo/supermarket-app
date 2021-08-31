@@ -27,9 +27,9 @@ describe("Products page", () => {
 
   it("should display basketItems", () => {
     expect(screen.getByText("Pizza"));
-    expect(screen.getByText("0.90p each"));
+    expect(screen.getByText("0.90p"));
     expect(screen.getByText("Burrito"));
-    expect(screen.getByText("£3.45 each"));
+    expect(screen.getByText("£3.45"));
   });
 
   it("Should display subtotal", () => {

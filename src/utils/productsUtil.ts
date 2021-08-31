@@ -1,10 +1,17 @@
-export const formatPrice = (price: number, perKg: boolean = false) => {
+export const formatPrice = (price: number) => {
+  return `${currencyStringBuilder(price)}`;
+};
+
+export const formatPricePerKg = (price: number, weight: number) => {
+  const totalCost = price * weight;
+  return `${weight} kg @ ${currencyStringBuilder(price)}/kg ${totalCost}`;
+};
+
+const currencyStringBuilder = (price: number) => {
   let priceStringBuilder = "";
   if (price.toString().startsWith("0")) {
-    priceStringBuilder = `${price.toFixed(2)}p`;
+    return (priceStringBuilder = `${price.toFixed(2)}p`);
   } else {
-    priceStringBuilder = `£${price.toFixed(2)}`;
+    return (priceStringBuilder = `£${price.toFixed(2)}`);
   }
-
-  return perKg ? `${priceStringBuilder} per kg` : `${priceStringBuilder} each`;
 };

@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import styled from "styled-components";
 import { SupermarketContext } from "../context/supermarketContext";
-import { formatPrice } from "../utils/productsUtil";
+import { formatPrice, formatPricePerKg } from "../utils/productsUtil";
 
 const BasketContainer = styled.div`
 padding: 20px;
@@ -24,7 +24,7 @@ export const Basket = () => {
         {basketItems.map((item, i) => (
           <Item key={i}>
             <p>{item.name}</p>
-            <p>{formatPrice(item.price, item.perKg)}</p>
+            <p>{item.perKg ? formatPricePerKg(item.price, item.weight!) : formatPrice(item.price)}</p>
           </Item>
         ))}
         <p>Sub-total</p>
