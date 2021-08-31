@@ -65,7 +65,7 @@ export const SupermarketContextProvider = ({ children }: Props) => {
 
   function getSubTotal() {
     return basketItems.reduce((accumulator, current) => {
-      if (current.perKg == true) {
+      if (current.perKg === true) {
         return accumulator + current.price * current.weight!;
       }
       return accumulator + current.price;
@@ -82,7 +82,7 @@ export const SupermarketContextProvider = ({ children }: Props) => {
         if (item.id === rule.productId) {
           itemCounter++;
 
-          if (itemCounter % rule.quantity == 0) {
+          if (itemCounter % rule.quantity === 0) {
             totalSavings += rule.discount;
           }
         }
