@@ -39,7 +39,7 @@ const Product = (props: ProductsProps) => {
   const { id, name, price, image, perKg } = props.product;
 
   const { addItemsToBasket } = useContext(SupermarketContext);
-  const [amountInKg, setAmountInKg] = useState(0);
+  const [amountInKg, setAmountInKg] = useState<number>(0);
 
   return (
     <>
@@ -48,12 +48,16 @@ const Product = (props: ProductsProps) => {
           <ProductImage>{image}</ProductImage>
         </Image>
         <ProductName>{name}</ProductName>
-        <p>{perKg ? `${formatPrice(price)} per kg` : `${formatPrice(price)} each`}</p>
+        <p>
+          {perKg
+            ? `${formatPrice(price)} per kg`
+            : `${formatPrice(price)} each`}
+        </p>
 
         {perKg ? (
           <Quantity
             onChange={(e: React.FormEvent<HTMLInputElement>) =>
-              setAmountInKg(parseInt(e.currentTarget.value))
+              setAmountInKg(parseFloat(e.currentTarget.value))
             }
             label={{ basic: true, content: "kg" }}
             labelPosition="right"
