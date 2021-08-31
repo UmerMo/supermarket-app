@@ -30,6 +30,7 @@ export type SupermarketContextType = {
   addItemsToBasket: (product: BasketItem, weight?: number) => void;
   getSubTotal: () => number;
   getTotalSavings: () => number;
+  getTotalToPay: () => number;
 };
 
 export const SupermarketContext = createContext<SupermarketContextType>({
@@ -38,6 +39,7 @@ export const SupermarketContext = createContext<SupermarketContextType>({
   addItemsToBasket: () => {},
   getSubTotal: () => 0,
   getTotalSavings: () => 0,
+  getTotalToPay: () => 0,
 });
 
 export const SupermarketContextProvider = ({ children }: Props) => {
@@ -49,7 +51,6 @@ export const SupermarketContextProvider = ({ children }: Props) => {
 
   function addItemsToBasket(product: BasketItem, weight?: number) {
     if (product.perKg) {
-      console.log("weight per kg");
       if (weight) {
         setBasketItems((prevState: BasketItem[]): BasketItem[] => {
           return [...prevState, { ...product, weight: weight }];
@@ -91,6 +92,10 @@ export const SupermarketContextProvider = ({ children }: Props) => {
     return totalSavings;
   }
 
+  function getTotalToPay() {
+    return getSubTotal() - getTotalSavings();
+  }
+
   return (
     <SupermarketContext.Provider
       value={{
@@ -99,6 +104,7 @@ export const SupermarketContextProvider = ({ children }: Props) => {
         addItemsToBasket,
         getSubTotal,
         getTotalSavings,
+        getTotalToPay,
       }}
     >
       {children}
